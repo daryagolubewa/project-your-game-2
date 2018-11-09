@@ -7,7 +7,6 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
 const router = express.Router();
 const saltRounds = 10;
 
@@ -123,7 +122,7 @@ router.get('/', async function(req, res, next) {
         return true;
     }
     let userName
-    if((req.session.passport != undefined) && !isEmpty(req.session.passport)) {
+    if((req.session.passport !== undefined) && !isEmpty(req.session.passport)) {
         userName = await models.users.giveId(req.session.passport.user)
         userName = userName[0].nickname
     }
@@ -132,4 +131,5 @@ router.get('/', async function(req, res, next) {
     }
   res.render('index', { title: 'Home', userName});
 });
- module.exports = router;
+
+module.exports = router;

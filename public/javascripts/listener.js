@@ -7,8 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnLog = document.getElementById('log');
     const error = document.getElementById('error')
     const error2 = document.getElementById('error2')
+    const error3 = document.getElementById('error3')
     const spanReg = document.getElementsByClassName("close")[0];
     const spanLog = document.getElementsByClassName("close")[1];
+
     
     btnReg.addEventListener('click', () => {
         modalReg.style.display = "block"
@@ -72,5 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             error2.style.display = "inline"
         }
     })
-    
+
+
 })
+
