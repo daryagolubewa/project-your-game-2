@@ -19,9 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     })
   };
 
-    Question.getAnswer = async (answer) => {
+    Question.getAnswer = async (question, answer) => {
         return await Question.findAll({
             where: {
+                question: question,
                 answer: answer
             }
         })
