@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('users', {
     nickname: DataTypes.STRING,
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    score: DataTypes.INTEGER
   }, {
     timestamps: true
   });
@@ -11,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.results);
   };
 
+  User.getScore = async (id) => {
+    let score = await User.findByPk(id)
+    return score = score.score
+  }
 
   User.giveEmail = async (email) => {
     return await User.findAll({
