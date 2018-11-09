@@ -57,7 +57,10 @@ router.get('/user/profile', async (req,res) => {
 })
  // GET home page. 
 router.get('/', async function(req, res, next) {
+
   let userResult = await userRes(req)
   res.render('index', { title: 'Home', userName: userResult.nickname});
+
 });
- module.exports = router;
+
+module.exports = router;

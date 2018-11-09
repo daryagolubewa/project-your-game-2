@@ -11,13 +11,14 @@ module.exports = (sequelize, DataTypes) => {
     Question.belongsTo(models.decks);
   };
 
-  Question.getQuestions = async (deck) => {
-    return await Question.findAll({
-        where: {
-            id: deck
-        }
-    })
-  };
+    Question.getAnswer = async (question, answer) => {
+        return await Question.findAll({
+            where: {
+                question: question,
+                answer: answer
+            }
+        })
+    };
 
   return Question;
 };
