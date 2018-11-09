@@ -3,9 +3,15 @@ const express = require('express');
 const router = express.Router();
 
 //GET game page
-router.get('/game', function (req, res) {
+router.get('/game', async function (req, res) {
     res.render('game');
 });
+
+router.get('/questions', async function (req, res) {
+    let question = await models.Question.findByPk(id);
+    res.send(question.question);
+});
+
 
 //POST game page
 router.post('/game', async function (req, res) {
@@ -17,7 +23,11 @@ router.post('/game', async function (req, res) {
     } else {
         res.send('Not such a big success')
     }
+
 });
+
+
+
 
 
 module.exports = router;

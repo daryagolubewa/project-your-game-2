@@ -1,11 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     const showQuestion = document.querySelector('.tableCell');
     const sendAnswer = document.querySelector('btnAnswer');
+    const modalReg = document.getElementById('signup_form');
 
     //клик на ячейку, вызов модального окна с вопросом
-    showQuestion.addEventListener('click', async () => {
+    showQuestion.addEventListener('click', async (e) => {
+        let questId = e.target.id;
+        let response = await fetch(`questions?id=${questId}`);
+
+        let question = await response.text();
+        const questField = document.getElementById('question');
+        questField.innerText = question;
         modalReg.style.display = "block"
-        alert('sdmslmvfslvm;flsvmdlvfdll')
+
     });
 
 
