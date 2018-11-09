@@ -71,6 +71,11 @@ a {
   color: #ad0622;
 }
 
+#error2 {
+  display: none;
+  color: #ad0622;
+}
+
 .button {
     background:none!important;
      color: deepskyblue;

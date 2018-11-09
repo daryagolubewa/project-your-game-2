@@ -1,4 +1,4 @@
-// const models = require('./../models/index')
+const models = require('./../models/index')
 const express = require('express');
 const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
@@ -21,14 +21,14 @@ passport.use(new LocalStrategy(
         const foundUsers = await models.users.giveEmail(email);
         // no user was found
         if(foundUsers.length === 0) {
-            return done('Error. Email not found!');
+            return done(400, 'Error. Email not found!');
         } else {
             if(bcrypt.compareSync(password, foundUsers[0].password)) {
                 // success
                 console.log('Local strategy returned true');
                 return done(null, foundUsers[0]);
             } else {
-                return done(404, 'Error. Password not correct!');
+                return done(400, 'Error. Password not correct!');
             }
         }
     }
@@ -103,7 +103,7 @@ router.get('/user/login', (req, res, next) => {
       res.send('dfdf')
    }
    else {
-     res.send(404, 'This email is already used')
+     res.send(400, 'This email is already used')
    }   
 })
 // get user log out

@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnReg = document.getElementById('reg');
     const btnLog = document.getElementById('log');
     const error = document.getElementById('error')
+    const error2 = document.getElementById('error2')
     const spanReg = document.getElementsByClassName("close")[0];
     const spanLog = document.getElementsByClassName("close")[1];
     
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
             headers :{ 'Content-type': 'application/json; charset=UTF-8'},
             body:JSON.stringify({email, password})
             })
-        response = await response.status
+        response = response.status
         if(response == 200) {
             location.reload();
         }
@@ -53,8 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let email = document.getElementById('emailreg').value
         let password = document.getElementById('passwordreg').value
         event.preventDefault()
-        if(nickname && email && password === '') {
-            return alert('pull all fields')
+
+        if((nickname && email && password) === '') {
+            return alert('push all fields')
             
         }
         let response = await fetch('/user/create', {
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             location.reload();
         }
         else {
-            error.style.display = "inline"
+            error2.style.display = "inline"
         }
     })
     

@@ -1,11 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Deck = sequelize.define('Deck', {
+  const Deck = sequelize.define('decks', {
     name: DataTypes.STRING
   }, {});
   Deck.associate = function(models) {
-    Deck.hasMany(models.Question);
-    // Deck.hasMany(models.result);
+    Deck.hasMany(models.questions, {foreignKey: 'deck_id'});
   };
 
   Deck.getAllDecks = async () => {
