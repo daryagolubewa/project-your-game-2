@@ -1,76 +1,15 @@
 const models = require('./../models/index')
-const express = require('express');
-const uuid = require('uuid/v4');
 const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const FileStore = require('session-file-store')(session);
+const express = require('express');
+
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const addMiddlewares = require('../middlewares/add-middlewares');
+const userRes = require('../helpers/func')
+
 
 const router = express.Router();
+addMiddlewares(router);
 const saltRounds = 10;
-
- // configure passport.js to use the local strategy
-passport.use(new LocalStrategy(
-    { usernameField: 'email' },
-    async (email, password, done) => {
-        console.log('Inside local strategy callback');
-        // here is where you make a call to the database
-        // to find the user based on their username or email address
-        const foundUsers = await models.users.giveEmail(email);
-        // no user was found
-        if(foundUsers.length === 0) {
-            return done(400, 'Error. Email not found!');
-        } else {
-            if(bcrypt.compareSync(password, foundUsers[0].password)) {
-                // success
-                console.log('Local strategy returned true');
-                return done(null, foundUsers[0]);
-            } else {
-                return done(400, 'Error. Password not correct!');
-            }
-        }
-    }
-));
-
-router.use(bodyParser.urlencoded({ extended: false })); // Form data
-router.use(bodyParser.json()); // JSON
-router.use(session({
-    genid: (req) => {
-        console.log('Inside the session middleware');
-        console.log(req.sessionID);
-        return uuid(); // use UUIDs for session IDs
-    },
-    store: new FileStore(),
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 10*60*1000 }
-}));
-router.use(passport.initialize());
-router.use(passport.session());
-// tell passport how to serialize the user
-passport.serializeUser((user, done) => {
-    console.log('Inside serializeUser callback. User id is save to the session file store here');
-    done(null, user.id);
-});
- passport.deserializeUser( async (id, done) => {
-    let users = await models.users.giveId(id)
-    let user
-    if(users.length === 0) {
-      user = false
-    }
-    else {
-      if(users[0].id === id) {
-        user = users[0]
-      }
-      else {
-        user = false
-      }
-    }
-    done(null, user);
-});
 
 //GET login form
 router.get('/user/login', (req, res, next) => {
@@ -112,24 +51,13 @@ router.get('/user/logout', (req,res)=> {
   res.redirect('/')
 })
 
+router.get('/user/profile', async (req,res) => {
+  let userResult = await userRes(req)
+  res.render('profile', {userName: userResult.nickname, userScore: userResult.score})
+})
  // GET home page. 
 router.get('/', async function(req, res, next) {
-    let isEmpty = (myObject) => {
-        for(var key in myObject) {
-            if (myObject.hasOwnProperty(key)) {
-                return false;
-            }
-        }    
-        return true;
-    }
-    let userName
-    if((req.session.passport != undefined) && !isEmpty(req.session.passport)) {
-        userName = await models.users.giveId(req.session.passport.user)
-        userName = userName[0].nickname
-    }
-    else {
-        userName = false
-    }
-  res.render('index', { title: 'Home', userName});
+  let userResult = await userRes(req)
+  res.render('index', { title: 'Home', userName: userResult.nickname});
 });
  module.exports = router;
