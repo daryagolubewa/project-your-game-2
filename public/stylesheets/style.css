@@ -1,0 +1,82 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.logo_conteiner {
+  border: 5px solid #960a2d;
+  color: #ad0622;
+  width: 305px;
+  height: 305px;
+  border-radius: 50%;
+  padding: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+ 
+/* .logo {
+  width:160px;
+  margin: auto;
+  margin-top: 20px;
+} */
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid #888;
+  width: 70%;
+  height: auto;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mg {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+#error {
+  display: none;
+  color: #ad0622;
+}
+
+.button {
+    background:none!important;
+     color: deepskyblue;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     border-bottom:1px solid #444; 
+     cursor: pointer;
+}

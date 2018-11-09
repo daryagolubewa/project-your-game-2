@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/listener.js"></script>
+  </head>
+  <body>
+    
+    <header align="right">
+      {{#if userName}}
+        <a href="/user/{{userName}}">{{userName}}</a>
+        <a href="/user/logout">logout</a>
+      {{else}} 
+      <button id="reg" class="button">sign up</button> 
+      <button id="log" class="button">sign in</button>
+      {{/if}} 
+      <a href="/">Home</a>
+    </header>
+<center>  
+ <div id="signup_form" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>Registration</h1>
+      <form action="/user/create" method="post">
+        <label for="nickname">nickname</label>
+        <input type="text" name="nickname" id="nickname" required>
+        <label for="email">email</label>
+        <input type="text" name="email" id="emailreg" required>
+        <label for="password">password</label>
+        <input type="text" name="password" id="passwordreg" required>
+         <div id="error" class="mg">Email is already used</div>
+        <button id="regbtn">OK</button>
+      </form>
+    </div>
+  </div>
+</center>  
+
+<center>
+  <div id="signin_form" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>Login</h1>
+        <form action="/login" method="post">
+          <div class="mg"><label for="email">email</label>
+          <input type="text" id="email" name="email" required></div>
+          <div class="mg"><label for="password">password</label>
+          <input id="password" type="password" name="password" required></div>
+          <div id="error" class="mg">Incorrect username or password</div>
+          <div><button id="subbtn">OK</button></div>
+        </form>
+      </div>
+  </div>
+</center>
+
+    <center>
+      
+      <h1>MOYA IGRA</h1>
+    </div>
+    {{{body}}}
+    </center>
+  </body>
+</html>
